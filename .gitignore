@@ -1,0 +1,54 @@
+# Secrets
+.env
+backend/.env
+frontend/.env
+*.pem
+
+# Python
+backend/.venv/
+backend/venv/
+**/__pycache__/
+**/*.py[cod]
+backend/foodhub.db
+backend/*.db
+
+# Uploads (keep folder)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# React
+node_modules/
+dist/
+build/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
