@@ -1,4 +1,4 @@
-"""Authenticated shopping cart stored in SQLite."""
+"""Authenticated shopping cart stored in the database."""
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session

@@ -1,9 +1,9 @@
-"""SQLite engine, session factory, and schema creation."""
+"""PostgreSQL engine, session factory, and schema creation."""
 
 from collections.abc import Generator
 from pathlib import Path
 
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.core.config import settings
@@ -17,27 +17,8 @@ class Base(DeclarativeBase):
     pass
 
 
-def _database_url() -> str:
-    url = settings.DATABASE_URL
-    if url.startswith("sqlite:///./"):
-        filename = url.removeprefix("sqlite:///./")
-        return f"sqlite:///{(BASE_DIR / filename).as_posix()}"
-    return url
-
-
-engine = create_engine(
-    _database_url(),
-    connect_args={"check_same_thread": False} if settings.DATABASE_URL.startswith("sqlite") else {},
-)
+engine = create_engine(settings.DATABASE_URL, pool_pre_ping=True)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, expire_on_commit=False)
-
-
-@event.listens_for(engine, "connect")
-def _enable_sqlite_foreign_keys(dbapi_connection, _connection_record) -> None:
-    if settings.DATABASE_URL.startswith("sqlite"):
-        cursor = dbapi_connection.cursor()
-        cursor.execute("PRAGMA foreign_keys=ON")
-        cursor.close()
 
 
 def get_db() -> Generator[Session, None, None]:

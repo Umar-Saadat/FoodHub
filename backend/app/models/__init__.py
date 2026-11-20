@@ -3,6 +3,7 @@
 from app.models.address import Address
 from app.models.cart import Cart, CartItem
 from app.models.category import Category
+from app.models.contact import ContactMessage
 from app.models.driver import Driver
 from app.models.food import Food
 from app.models.order import Order, OrderItem
@@ -18,6 +19,7 @@ __all__ = [
     "Cart",
     "CartItem",
     "Category",
+    "ContactMessage",
     "Driver",
     "Food",
     "Order",
